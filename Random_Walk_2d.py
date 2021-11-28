@@ -24,7 +24,7 @@ coordinate = pd.DataFrame({'x轴': [0], 'y轴': [0]})
 for i in range(100):
     step_walk = random_walk(20)
     coordinate.loc[i] = step_walk  # 对df新增行时，使用loc[i]。不能使用iloc[i]
-    # coordinate = coordinate.append(step_walk,ignore_index=True) 另一种在df最后添加一行的方法，但step_walk需要为df
+    # coordinate = coordinate.append(step_walk,ignore_index=True) 是另一种在df最后添加一行的方法，但step_walk数据类型需要为df
 
 x = coordinate['x轴']
 y = coordinate['y轴']
