@@ -11,8 +11,8 @@ from bs4 import BeautifulSoup  # 导入解析库
 # print(baidu_soul.title)  # 输出title
 # print(baidu_soul.p)  # 输出段落
 
-start_url = 'https://en.wikipedia.org/wiki/Special:Random'
-target_url = 'https://en.wikipedia.org/wiki/Philosophy'
+start_url = 'https://en.jinzhao.wiki/wiki/Special:Random'
+target_url = 'https://en.jinzhao.wiki/wiki/Philosophy'
 crawler_log = [start_url]
 
 def crawl(search_history, target_url, max_crawl= 5):
@@ -27,7 +27,6 @@ def crawl(search_history, target_url, max_crawl= 5):
 
 
 def find_first_link(url):
-    # proxies = {"http": "http://d91.v2s4.2223.pub:8080", "https": "https://d91.v2s4.2223.pub:8080"}
     response = requests.get(url)
     wiki_soup = BeautifulSoup(response.text, 'html.parser')
     content_div = wiki_soup.find(id='mw-content-text').find(class_='mw-parser-output')
@@ -36,9 +35,13 @@ def find_first_link(url):
         if element.find('a', recursive=False):
             name_link = element.find('a', recursive=False).get('href')
             break
-    first_link = urllib.parse.urljoin('https://en.wikipedia.org', name_link)
+    first_link = urllib.parse.urljoin('https://en.jinzhao.wiki', name_link)
     return first_link
 
+"""
+    proxies = {"http": "http://d91.v2s4.2223.pub:8080", "https": "https://d91.v2s4.2223.pub:8080"}
+    requests库可以设置代理服务器
+"""
 
 while crawl(crawler_log, target_url):
     print(crawler_log[-1])
